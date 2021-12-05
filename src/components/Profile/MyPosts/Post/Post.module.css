@@ -1,8 +1,7 @@
-.content {
-    grid-area: c;
-    background-color: beige;
-}
-
 .item {
 
+}
+.item img {
+    width: 60px;
+    border-radius: 30px;
 }

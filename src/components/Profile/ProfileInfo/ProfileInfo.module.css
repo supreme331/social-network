@@ -1,7 +1,11 @@
-.item {
-
+.descriptionBlock {
+    padding: 10px;
 }
-.item img {
-    width: 60px;
-    border-radius: 30px;
+
+.mainPhoto {
+    max-width: 200px;
+}
+
+.contact {
+    padding-left: 10px;
 }
