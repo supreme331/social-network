@@ -1,8 +1,9 @@
 import {updateObjectInArray} from "../utils/object-helpers"
 import {UserType} from "../types/types"
-import {BaseThunkType, InferActionsTypes} from "./redux-store";
-import {Dispatch} from "redux";
-import {usersAPI} from "../api/usersAPI";
+import {BaseThunkType, InferActionsTypes} from "./redux-store"
+import {Dispatch} from "redux"
+import {usersAPI} from "../api/usersAPI"
+import {APIResponseType} from "../api/api";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -65,22 +66,22 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => {
 
 const _followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>,
                                    userId: number,
-                                   apiMethod: any,
+                                   apiMethod: (userId: number) => Promise<APIResponseType>,
                                    actionCreator: (userId: number) => ActionsTypes) => {
     dispatch(actions.toggleFollowingProgress(true, userId))
-    let data = await apiMethod(userId)
-    if (data.resultCode === 0) {
+    let response = await apiMethod(userId)
+    if (response.resultCode === 0) {
         dispatch(actionCreator(userId))
     }
     dispatch(actions.toggleFollowingProgress(false, userId))
 }
 
 export const follow = (userId: number): ThunkType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess)
+    await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess)
 }
 
 export const unfollow = (userId: number): ThunkType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess)
+    await _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess)
 }
 
 export const actions = {
@@ -96,6 +97,6 @@ export const actions = {
 
 export default usersReducer
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type ActionsTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>
