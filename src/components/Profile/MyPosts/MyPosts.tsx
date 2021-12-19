@@ -1,7 +1,7 @@
 import React from "react"
 import s from './MyPosts.module.css'
 import Post from "./Post/Post"
-import {useForm} from "react-hook-form"
+import {SubmitHandler, useForm} from "react-hook-form"
 import * as yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import {PostType} from "../../../types/types";
@@ -39,14 +39,14 @@ type AddPostValuesType = {
 }
 const MyPostsForm: React.FC<MyPostFormPropsType> = (props) => {
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm(
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<AddPostValuesType>(
         {mode: "onChange",resolver: yupResolver(schema)});
 
     let onAddPost = (values: AddPostValuesType) => {
         props.addPost(values.newPostText)
     }
 
-    const onSubmit = (data: {newPostText: string}) => {
+    const onSubmit: SubmitHandler<AddPostValuesType> = (data: {newPostText: string}) => {
         onAddPost(data)
         reset()
     }

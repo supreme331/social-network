@@ -1,36 +1,31 @@
 import React from "react";
 import * as yup from "yup";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import s from './ProfileInfo.module.css';
-import {ContactsType, GetStringKeys, ProfileType} from "../../../types/types";
-import {UseFormRegister} from "react-hook-form/dist/types/form";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup"
+import s from './ProfileInfo.module.css'
+import {GetStringKeys, ProfileType} from "../../../types/types"
+import {UseFormRegister} from "react-hook-form/dist/types/form"
 
 type InputPropsType = {
     type: string
     label: string
     name: ProfileDataFormValuesTypeKeys
-    register: UseFormRegister<ProfileDataFormValuesType>
-}
-type ProfileDataFormValuesType = {
-    fullName: string
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    contacts: ContactsType
+    register: UseFormRegister<ProfileType>
 }
 
-type ProfileDataFormValuesTypeKeys = GetStringKeys<ProfileDataFormValuesType>
+type ProfileDataFormValuesTypeKeys = GetStringKeys<ProfileType>
 
 const Input: React.FC<InputPropsType> = ({ type, label, name, register}) => (
     <>
         <label>{label}</label>
         <input type={type} {...register(name)} />
     </>
-);
+)
 
 const schema = yup.object().shape({
-    about: yup.string()
+    about: yup.string(),
+    lookingForAJob: yup.boolean(),
+    lookingForAJobDescription: yup.string()
 });
 
 type ProfileDataFormPropsType = {
@@ -41,7 +36,7 @@ type ProfileDataFormPropsType = {
 
 const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivateEditMode, saveProfile}) => {
 
-    const { register, handleSubmit, formState: {errors} } = useForm(
+    const { register, handleSubmit, formState: {errors} } = useForm<ProfileType>(
         {mode: "onBlur",
             defaultValues: {fullName: profile.fullName,
                 aboutMe: profile.aboutMe,
@@ -57,12 +52,12 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivat
                     github: profile.contacts.github,
                     mainLink: profile.contacts.mainLink,
                 }},
-            resolver: yupResolver(schema)});
+            resolver: yupResolver(schema)})
 
-    const onSubmit = (data: ProfileType) => {
-        saveProfile(data);
-        deActivateEditMode();
-    };
+    const onSubmit: SubmitHandler<ProfileType> = (data: ProfileType) => {
+        saveProfile(data)
+        deActivateEditMode()
+    }
 
     return <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -88,4 +83,4 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivat
     </form>
 }
 
-export default ProfileDataForm;
+export default ProfileDataForm

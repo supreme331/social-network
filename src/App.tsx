@@ -1,5 +1,6 @@
 import React from "react"
 import './App.css'
+import 'antd/dist/antd.css'
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom"
 import Navbar from "./components/Navbar/Navbar"
 import ProfileContainer from "./components/Profile/ProfileContainer"
@@ -14,7 +15,7 @@ import {withSuspense} from "./hoc/withSuspense"
 const News = React.lazy(() => import('./components/News/News'))
 const Settings = React.lazy(() => import('./components/Settings/Settings'))
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
+const UsersPage = React.lazy(() => import('./components/Users/UsersContainer'))
 const LoginPage = React.lazy(() => import('./components/Login/Login'))
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -23,7 +24,7 @@ type DispatchPropsType = {
 }
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
-const SuspendedUsers = withSuspense(UsersContainer)
+const SuspendedUsers = withSuspense(UsersPage)
 const SuspendedLoginPage = withSuspense(LoginPage)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
@@ -50,7 +51,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                     <Route exact path='/' render={() => <Redirect to={"/profile"}/>}/>
                     <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/users' render={() => <SuspendedUsers/>}/>
+                    <Route path='/users' render={() => <SuspendedUsers pageTitle='Самураи'/>}/>
                     <Route path='/news' render={withSuspense(News)}/>
                     <Route path='/settings' render={withSuspense(Settings)}/>
                     <Route path='/login' render={() => <SuspendedLoginPage/>}/>

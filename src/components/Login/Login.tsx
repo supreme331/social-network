@@ -3,12 +3,10 @@ import {SubmitHandler, useForm} from "react-hook-form"
 import * as yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import s from './Login.module.css'
-import {connect} from "react-redux"
-import {login} from "../../redux/auth-reducer"
+import {useDispatch, useSelector} from "react-redux"
 import {Redirect} from "react-router-dom"
+import {login} from "../../redux/auth-reducer"
 import {getAuthErrorMessage, getCaptchaUrlSelector, getIsAuth, getIsWrongAuth} from "../../redux/auth-selectors"
-import {AppStateType} from "../../redux/redux-store"
-import {compose} from "redux"
 
 const schema = yup.object().shape({
     email: yup.string().required().email().defined(),
@@ -64,40 +62,27 @@ const LoginForm: React.FC<LoginFormProps> = ({login, isWrongAuth, message, captc
     </form>
 }
 
-type MapStatePropsType = {
-    isAuth: boolean
-    isWrongAuth: boolean
-    message: string | null
-    captchaUrl: string | null
-}
+const LoginPage: React.FC = () => {
 
-type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string | undefined) => void
-}
+    const captchaUrl= useSelector(getCaptchaUrlSelector)
+    const message= useSelector(getAuthErrorMessage)
+    const isWrongAuth= useSelector(getIsWrongAuth)
+    const isAuth= useSelector(getIsAuth)
 
-const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = ({isAuth,
-                                                                       isWrongAuth,
-                                                                       message,
-                                                                       captchaUrl,
-                                                                       login}) => {
+    const dispatch = useDispatch()
+
+    const loginFunc = (email: string, password: string, rememberMe: boolean, captcha: string | undefined) => {
+        dispatch(login(email, password, rememberMe, captcha))
+    }
+
     if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
 
     return <div>
         <h1>Login</h1>
-        <LoginForm login={login} isWrongAuth={isWrongAuth} message={message} captchaUrl={captchaUrl}/>
+        <LoginForm login={loginFunc} isWrongAuth={isWrongAuth} message={message} captchaUrl={captchaUrl}/>
     </div>
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    isAuth: getIsAuth(state),
-    isWrongAuth: getIsWrongAuth(state),
-    message: getAuthErrorMessage(state),
-    captchaUrl: getCaptchaUrlSelector(state)
-})
-
-export default compose<React.ComponentType>(connect<MapStatePropsType,
-    MapDispatchPropsType,
-    null, // OwnPropsType
-    AppStateType>(mapStateToProps, {login}))(Login)
+export default LoginPage
