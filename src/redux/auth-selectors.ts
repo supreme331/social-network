@@ -7,6 +7,9 @@ export  const getIsAuth = (state: AppStateType) => {
 export  const getIsWrongAuth = (state: AppStateType) => {
     return state.auth.isWrongAuth;
 }
+export  const getCurrentUserLogin = (state: AppStateType) => {
+    return state.auth.login;
+}
 
 export  const getAuthErrorMessage = (state: AppStateType) => {
     return state.auth.authErrorMessage;
