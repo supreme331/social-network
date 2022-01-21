@@ -1,6 +1,14 @@
+
+
 .header {
-    grid-area: h;
-    background-color: #636363;
+    position: fixed;
+    zIndex: 1;
+    width: 100%
+}
+
+.loginBtn {
+    position: relative;
+    left: 0;
 }
 
 .header img {
@@ -13,3 +21,4 @@
 .loginBlock a {
     color: white;
 }
+

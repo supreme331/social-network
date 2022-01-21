@@ -15,9 +15,9 @@ type PropsType = {
 }
 
 const Profile: React.FC<PropsType> = (props) => {
-    if (!props.isAuth) {
-        return <Redirect to={"/login"}/>
-    }
+    // if (!props.isAuth) {
+    //     return <Redirect to={"/login"}/>
+    // }
     return (
         <div>
             <ProfileInfo savePhoto={props.savePhoto}

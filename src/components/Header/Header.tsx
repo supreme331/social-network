@@ -1,10 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Avatar, Button, Col, Layout, Menu, Row} from "antd";
-import {UserOutlined} from "@ant-design/icons";
+import { Button, Col, Layout, Menu, Row} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuth, getCurrentUserLogin} from "../../redux/auth-selectors";
 import {logout} from "../../redux/auth-reducer";
+import s from "./Header.module.css";
+
 
 export type MapPropsType = {}
 export type DispatchPropsType = {}
@@ -16,16 +17,18 @@ export const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
     const isAuth = useSelector(getIsAuth)
     const login = useSelector(getCurrentUserLogin)
 
+
+
     const dispatch = useDispatch()
 
     const logoutCallBack = () => {
         dispatch(logout())
     }
 
-    return <Header className="header">
+    return <Header className="header"  style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <Row>
             <Col span={18}>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1"><Link to="/">Main</Link></Menu.Item>
                     <Menu.Item key="2"><Link to="/developers">Developers</Link></Menu.Item>
                     {/*<Menu.Item key="3">nav 3</Menu.Item>*/}
@@ -33,10 +36,10 @@ export const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
             </Col>
 
                 {isAuth ? <>
-                        <Col span={1}>
-                        <Avatar alt={login || ""} style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
-                    </Col>
-                    <Col span={5}>
+                        <Col span={2}>
+                        <h3>{login}</h3>
+                        </Col>
+                    <Col className={s.loginBtn} span={4}>
                         <Button onClick={logoutCallBack}>Log out</Button>
                     </Col>
                 </>

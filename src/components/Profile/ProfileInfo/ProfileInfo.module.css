@@ -1,9 +1,33 @@
 .descriptionBlock {
     padding: 10px;
 }
+.mainPhoto:hover .loadPhotoActive {
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #8e96ad;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    top: 147px;
+    width: 180px;
+    text-align: center;
+    transition: 0.5s;
+}
+.mainPhoto h3 {
+    display: none;
+}
 
-.mainPhoto {
+.mainPhoto:hover h3 {
+    display: block;
+}
+
+.descriptionBlock input {
+    display: none
+}
+
+.mainPhoto, img{
     max-width: 200px;
+    max-height: 200px;
 }
 
 .contact {

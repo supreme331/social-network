@@ -8,7 +8,8 @@ let initialState = {
         {id: 2, message: 'Hello world!', likesCount: 18}
     ] as Array<PostType>,
     profile: null as ProfileType | null,
-    status: ''
+    status: '',
+    isFetchingProfile: false
 }
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -36,6 +37,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
         case 'SN/PROFILE/SAVE_PHOTO_SUCCESS': {
             return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
+        case 'SN/PROFILE/TOGGLE_IS_FETCHING_PROFILE': {
+            return {...state, isFetchingProfile: action.isFetchingProfile}
+        }
         default:
             return state
     }
@@ -46,12 +50,18 @@ export const actions = {
     deletePostAC: (postId: number) => ({type: 'SN/PROFILE/DELETE_POST', postId} as const),
     setUserProfile: (profile: ProfileType) => ({type: 'SN/PROFILE/SET_USER_PROFILE', profile} as const),
     setUserStatus: (status: string) => ({type: 'SN/PROFILE/SET_USER_STATUS', status} as const),
-    savePhotoSuccess: (photos: PhotosType) => ({type: 'SN/PROFILE/SAVE_PHOTO_SUCCESS', photos} as const)
+    savePhotoSuccess: (photos: PhotosType) => ({type: 'SN/PROFILE/SAVE_PHOTO_SUCCESS', photos} as const),
+    toggleIsFetchingProfile: (isFetchingProfile: boolean) => ({type: 'SN/PROFILE/TOGGLE_IS_FETCHING_PROFILE', isFetchingProfile} as const)
+}
+
+export const fetchingProfile = () => (dispatch: any) => {
+    dispatch(actions.toggleIsFetchingProfile(true))
 }
 
 export const getProfile = (userId: number): ThunkType => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)
     dispatch(actions.setUserProfile(data))
+    dispatch(actions.toggleIsFetchingProfile(false))
 }
 
 export const getUserStatus = (userId: number): ThunkType => async (dispatch) => {

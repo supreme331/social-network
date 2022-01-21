@@ -2,6 +2,7 @@ import {ResultCodesEnum, ResultCodesForCaptcha} from "../api/api"
 import {authAPI} from "../api/authAPI";
 import {securityAPI} from "../api/securityAPI";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
+import {ProfileType} from "../types/types";
 
 let initialState = {
     userId: null as number | null,
@@ -10,7 +11,8 @@ let initialState = {
     isAuth: false,
     isWrongAuth: false,
     authErrorMessage: null as string | null,
-    captchaUrl: null as string | null // if null, then captcha is not required
+    captchaUrl: null as string | null, // if null, then captcha is not required
+    currentUserProfile: null as ProfileType | null
 }
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {

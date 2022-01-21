@@ -3,9 +3,10 @@ import {useSelector} from "react-redux"
 import {Users} from "./Users"
 import Preloader from "../common/Preloader/Preloader"
 import {getIsFetching} from "../../redux/users-selectors"
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UsersPagePropsType = {
-    pageTitle: string,
+    pageTitle: string
 }
 
 const UsersPage: React.FC<UsersPagePropsType> = (props) => {
@@ -19,5 +20,5 @@ const UsersPage: React.FC<UsersPagePropsType> = (props) => {
     </div>
 }
 
-export default UsersPage
+export default withAuthRedirect(UsersPage)
 

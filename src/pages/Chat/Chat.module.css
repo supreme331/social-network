@@ -1,0 +1,90 @@
+.openChatButton {
+    width: 130px;
+    padding: 0 0 20px 0;
+    position: fixed;
+    right: -20px;
+    bottom: 0
+}
+
+.openChatButton:hover {
+    transform: scale(1.2);
+    transition: 1s
+}
+
+.chat {
+    width: 330px;
+    max-height: 550px;
+    background-color: whitesmoke;
+    border: 1px solid silver;
+    border-radius: 5px;
+    position: fixed;
+    right: 0;
+    bottom: 0
+}
+
+.minimizeChatButton {
+    position: relative;
+    right: -300px;
+    top: -30px
+}
+
+.messagesBlock {
+    height: 480px;
+    overflow-y: auto;
+    position: relative;
+    top: -20px
+}
+
+.messagesBlock::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f9f9fd;
+}
+.messagesBlock::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #8e96ad;
+}
+.messagesBlock::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #f9f9fd;
+}
+
+.messageBlock {
+    padding: 5px 10px;
+}
+
+.chatPhoto {
+    max-width: max-content
+}
+
+.chatPhoto img {
+    width: 40px;
+    border-radius: 10px
+}
+
+.chatMessage {
+    border-radius: 5px;
+    background-color: lavender;
+    margin-left: 5px;
+    padding: 0 5px
+}
+
+.chatMessage div {
+    background-color: lavender;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 3px;
+    font-size: 0.9em
+}
+
+.chatMessageForm {
+    position: relative;
+    top: -10px;
+    height: 80px;
+    padding: 0 4px
+}
+.chatMessageFormInputs {
+    width: 100%;
+    height: 48px;
+    font-size: 0.9em
+}

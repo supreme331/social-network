@@ -15,7 +15,7 @@ type InputPropsType = {
 
 type ProfileDataFormValuesTypeKeys = GetStringKeys<ProfileType>
 
-const Input: React.FC<InputPropsType> = ({ type, label, name, register}) => (
+const Input: React.FC<InputPropsType> = ({type, label, name, register}) => (
     <>
         <label>{label}</label>
         <input type={type} {...register(name)} />
@@ -36,9 +36,11 @@ type ProfileDataFormPropsType = {
 
 const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivateEditMode, saveProfile}) => {
 
-    const { register, handleSubmit, formState: {errors} } = useForm<ProfileType>(
-        {mode: "onBlur",
-            defaultValues: {fullName: profile.fullName,
+    const {register, handleSubmit, formState: {errors}} = useForm<ProfileType>(
+        {
+            mode: "onBlur",
+            defaultValues: {
+                fullName: profile.fullName,
                 aboutMe: profile.aboutMe,
                 lookingForAJob: profile.lookingForAJob,
                 lookingForAJobDescription: profile.lookingForAJobDescription,
@@ -51,8 +53,10 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivat
                     youtube: profile.contacts.youtube,
                     github: profile.contacts.github,
                     mainLink: profile.contacts.mainLink,
-                }},
-            resolver: yupResolver(schema)})
+                }
+            },
+            resolver: yupResolver(schema)
+        })
 
     const onSubmit: SubmitHandler<ProfileType> = (data: ProfileType) => {
         saveProfile(data)
@@ -61,10 +65,10 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivat
 
     return <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-            <input type="submit"  value="Save"/>
+            <input type="submit" value="Save"/>
         </div>
-        <Input type="text" label="Full name:" name="fullName" register={register} />
-        <Input type="text" label="About me:" name="aboutMe" register={register} />
+        <Input type="text" label="Full name:" name="fullName" register={register}/>
+        <Input type="text" label="About me:" name="aboutMe" register={register}/>
         <div>Looking for a job:
             <input type={"checkbox"} id={"lookingForAJob"} {...register("lookingForAJob")}/>
         </div>
@@ -75,10 +79,16 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, deActivat
                       {...register("lookingForAJobDescription")} />
         </div>
         <div>Contacts: {Object.keys(profile.contacts).map(key => {
-            return <div key={key} className={s.contact}>
-                {/*todo: create com solution for embedded objects*/}
-                {/*<Input type="text" label={key + ": "} name={"contacts." + key} register={register}/>*/}
-            </div>
+            if (key === "vk" || "github" || "facebook" || "instagram" || "twitter" || "website" || "youtube" || "mainLink") {
+                // @ts-ignore
+                const name: ProfileDataFormValuesTypeKeys = "contacts." + key
+                // @ts-ignore
+                return <div key={key} className={s.contact}>
+                    {/*<label>{key + ": "}</label>*/}
+                    {/*<input type={"text"} {...register(name)} />*/}
+                    <Input type="text" label={key + ": "} name={name} register={register}/>
+                </div>
+            }
         })}</div>
     </form>
 }

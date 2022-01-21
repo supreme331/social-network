@@ -18,6 +18,10 @@ import {
 } from "../../redux/users-selectors"
 import {useHistory} from "react-router-dom";
 import * as queryString from "querystring";
+import {Input as I, Select } from 'antd';
+
+const { Search } = I
+const { Option } = Select
 
 type PropsType = {}
 
@@ -150,6 +154,15 @@ const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) =
         props.onFilterChanged(filter)
     }
     return <form onSubmit={handleSubmit(onSubmit)}>
+        {/*<I.Group compact>*/}
+        {/*    <I placeholder="input with clear icon" onPressEnter={undefined} allowClear/>*/}
+        {/*    <Select defaultValue="null" >*/}
+        {/*        <Option value="null">All</Option>*/}
+        {/*        <Option value="true">Only followed</Option>*/}
+        {/*        <Option value="false">Only unfollowed</Option>*/}
+        {/*    </Select>*/}
+        {/*</I.Group>*/}
+        {/*<input type="text" {...register("term")} />*/}
         <Input type="text" label="" name="term" register={register}/>
         <select {...register("friend")}>
             <option value="null">All</option>

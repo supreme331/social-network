@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from '../../../assets/img/user.png'
@@ -24,6 +24,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile,
 
     let [editMode, setEditMode] = useState(false)
 
+
     if (!profile) {
         return <Preloader />
     }
@@ -33,10 +34,14 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile,
             savePhoto(e.target.files[0]);
         }
     }
+
     return(
         <div className={s.descriptionBlock}>
-            <img src={profile.photos.large != null ? profile.photos.large : userPhoto} alt="avatar" className={s.mainPhoto}/>
-            {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+            <div className={s.mainPhoto}>
+                <img src={profile.photos.large != null ? profile.photos.large : userPhoto} alt="avatar" />
+                {isOwner && <label className={s.loadPhotoActive}><h3>Загрузить фото</h3><input id="file" type="file" onChange={onMainPhotoSelected}/></label>}
+            </div>
+
 
             <ProfileStatusWithHooks status={status}
                                     updateUserStatus={updateUserStatus}/>
