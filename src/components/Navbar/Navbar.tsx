@@ -12,11 +12,7 @@ const { Sider } = Layout
 
 const Navbar: React.FC = () => {
 
-    const [isCollapsed, setIsCollapsed] = useState(false)
 
-    const onCollapse = () => {
-        isCollapsed ? setIsCollapsed(false) : setIsCollapsed(true)
-    }
 
     const dispatch = useDispatch()
     const pageSize = useSelector(getPageSize)
@@ -27,24 +23,24 @@ const Navbar: React.FC = () => {
         dispatch(requestUsers(1, pageSize, {term: '', friend: null}))
     }
 
-    return <Sider collapsible collapsed={isCollapsed} onCollapse={onCollapse}  width={200} style={ {
+    return <Sider width={200} style={ {
         padding: '50px 0',
         overflow: 'auto',
         height: '100vh',
         position: 'fixed',
-        left: 0
+        zIndex: 1
     }}>
         <Menu
-            theme="dark"
+            theme="light"
             mode="inline"
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
         >
-                <Menu.Item key="1" icon={<UserOutlined />}><Link to="/profile">Profile</Link></Menu.Item>
-                <Menu.Item key="2" icon={<MessageOutlined />}><Link to="/dialogs">Messages</Link></Menu.Item>
-            <SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
-                <Menu.Item key="5"><Link onClick={onAllDevelopers} to="/developers">All developers</Link></Menu.Item>
-                <Menu.Item key="6"><Link onClick={onOnlyFriends} to="/developers">Only followed</Link></Menu.Item>
+                <Menu.Item className={s.item} key="1" icon={<UserOutlined />}><Link to="/profile">Profile</Link></Menu.Item>
+                <Menu.Item className={s.item} key="2" icon={<MessageOutlined />}><Link to="/dialogs">Messages</Link></Menu.Item>
+            <SubMenu className={s.item} key="sub2" icon={<LaptopOutlined />} title="Developers">
+                <Menu.Item className={s.item} key="5"><Link onClick={onAllDevelopers} to="/developers">All developers</Link></Menu.Item>
+                <Menu.Item className={s.item} key="6"><Link onClick={onOnlyFriends} to="/developers">Only followed</Link></Menu.Item>
             </SubMenu>
         </Menu>
     </Sider>

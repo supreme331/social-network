@@ -1,35 +1,43 @@
 import React from "react"
 import s from './MyPosts.module.css'
 import Post from "./Post/Post"
-import {SubmitHandler, useForm} from "react-hook-form"
-import * as yup from "yup"
-import {yupResolver} from "@hookform/resolvers/yup"
 import {PostType} from "../../../types/types";
+import {Button, Divider, Form, Input} from "antd";
 
 export type MapPropsType = {
     posts: Array<PostType>
 }
 export type DispatchPropsType = {
     addPost: (newPostText: string) => void
+    setLiked: (postId: number) => void
+    setUnLiked: (postId: number) => void
+    deletePost: (postId: number) => void
 }
 
 const MyPosts: React.FC<MapPropsType & DispatchPropsType> = (props) => {
+    const onSetLiked = (id: number) => {
+        props.setLiked(id)
+    }
+    const onSetUnLiked = (id: number) => {
+        props.setUnLiked(id)
+    }
+    const onDeletePost = (id: number) => {
+        props.deletePost(id)
+    }
     let postsElements = [...props.posts]
         .reverse()
-        .map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
+        .map(p => <Post deletePost={onDeletePost} setLiked={onSetLiked} setUnLiked={onSetUnLiked} message={p.message} likesCount={p.likesCount} isLiked={p.isLiked} id={p.id} key={p.id}/>)
 
     return <div className={s.postBlock}>
+        <Divider />
         <h3>My posts</h3>
         <MyPostsForm addPost={props.addPost}/>
+        <Divider/>
         <div className={s.posts}>
             {postsElements}
         </div>
     </div>
 }
-
-const schema = yup.object().shape({
-    newPostText: yup.string().max(100)
-});
 
 type MyPostFormPropsType = {
     addPost: (newPostText: string) => void
@@ -38,28 +46,34 @@ type AddPostValuesType = {
     newPostText: string
 }
 const MyPostsForm: React.FC<MyPostFormPropsType> = (props) => {
-
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<AddPostValuesType>(
-        {mode: "onChange",resolver: yupResolver(schema)});
-
-    let onAddPost = (values: AddPostValuesType) => {
+    const [form] = Form.useForm()
+    const onAddPost = (values: AddPostValuesType) => {
         props.addPost(values.newPostText)
     }
 
-    const onSubmit: SubmitHandler<AddPostValuesType> = (data: {newPostText: string}) => {
-        onAddPost(data)
-        reset()
+    const onFinish = (values: {newPostText: string}) => {
+        onAddPost(values)
+        form.resetFields()
     }
-
-    return <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-            <textarea placeholder='Enter your message' cols={30} rows={10} {...register("newPostText")} />
-        </div>
-        <p className={s.error}>{errors.newPostText?.message}</p>
-        <div>
-            <input type="submit"/>
-        </div>
-    </form>
+    return <Form
+        form={form}
+        size={'middle'}
+        wrapperCol={{ span: 24 }}
+        onFinish={onFinish}
+        style={{width: '100%'}}
+        initialValues={{
+            newPostText: ''
+        }}
+    >
+        <Form.Item name='newPostText' >
+            <Input.TextArea allowClear={true} autoSize={{ minRows: 3, maxRows: 6 }} showCount maxLength={300} placeholder='Enter your message'/>
+        </Form.Item>
+        <Form.Item >
+            <Button type="primary" htmlType="submit">
+                Send
+            </Button>
+        </Form.Item>
+    </Form>
 }
 
 export default MyPosts

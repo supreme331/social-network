@@ -1,8 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
+import {Input} from 'antd'
+import s from './ProfileInfo.module.css';
 
 type PropsType = {
     status: string
     updateUserStatus: (newStatus: string) => void
+    isOwner: boolean
 }
 
 
@@ -27,12 +30,25 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
         setStatus(e.currentTarget.value)
     }
         return (
-            <div>
-                {!editMode &&
-                <div>Status: <span onClick={activateEditMode}>{props.status || "_______________"}</span></div>}
-                {editMode &&
-                <div><input onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus={true}
-                           value={status} /></div>}
+            <div>{props.isOwner &&
+            !editMode &&
+                <div className={s.ownerStatusBody} onClick={activateEditMode}><span>{props.status || "Set status"}</span></div>}
+            {editMode &&
+                <div>
+            {/*<input onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus={true}*/}
+            {/*       value={status} />*/}
+                <Input onChange={onStatusChange}
+                onPressEnter={deactivateEditMode}
+                onBlur={deactivateEditMode}
+                value={status}
+                placeholder="What's new?"
+                autoFocus={true}/>
+                </div>
+            }
+                {
+                    !props.isOwner && <div><span>{props.status || "Set status"}</span></div>
+                }
+
             </div>
         )
     }

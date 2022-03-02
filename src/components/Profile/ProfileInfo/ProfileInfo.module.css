@@ -1,11 +1,22 @@
+.infoBlock {
+    width: 700px;
+    display: flex;
+
+}
+
 .descriptionBlock {
-    padding: 10px;
+    max-width: 490px;
+    padding-left: 40px;
+}
+.mainPhoto {
+    width: 200px;
+    margin-bottom: 10px;
 }
 .mainPhoto:hover .loadPhotoActive {
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 10px;
-    background-color: #8e96ad;
-    opacity: 0.5;
+    background-color: khaki;
+    opacity: 0.6;
     position: absolute;
     left: 0;
     top: 147px;
@@ -21,8 +32,8 @@
     display: block;
 }
 
-.descriptionBlock input {
-    display: none
+.file {
+    display: none;
 }
 
 .mainPhoto, img{
@@ -32,4 +43,20 @@
 
 .contact {
     padding-left: 10px;
+}
+
+.profileFormInput {
+    margin-bottom: 10px;
+}
+
+.ownerStatusBody:hover {
+    background-color: Khaki;
+}
+
+.deviderText {
+    font-size: 14px;
+}
+
+.deviderText:hover {
+    color: chocolate;
 }

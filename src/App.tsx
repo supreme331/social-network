@@ -1,6 +1,6 @@
 import React from "react"
-import './App.css'
-import 'antd/dist/antd.css'
+import './App.less'
+// import 'antd/dist/antd.css'
 import {BrowserRouter, Link, NavLink, Redirect, Route, Switch, withRouter} from "react-router-dom"
 import Navbar from "./components/Navbar/Navbar"
 import ProfileContainer from "./components/Profile/ProfileContainer"
@@ -13,7 +13,7 @@ import store, {AppStateType} from "./redux/redux-store"
 import {withSuspense} from "./hoc/withSuspense"
 import {Layout, Menu, Breadcrumb, Avatar, Row, Col} from 'antd'
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
-import s from "./components/Navbar/Navbar.module.css"
+
 import {Header} from "./components/Header/Header"
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -60,41 +60,33 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                     {/*    <Breadcrumb.Item>List</Breadcrumb.Item>*/}
                     {/*    <Breadcrumb.Item>App</Breadcrumb.Item>*/}
                     {/*</Breadcrumb>*/}
-                    <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-                        <Navbar />
-                        <Content style={{ padding: '50px 224px', height: 'auto' }}>
-                            <Switch>
-                                //         <Route exact path='/' render={() => <Redirect to={"/profile"}/>}/>
-                                //         <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
-                                //         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                                //         <Route path='/developers' render={() => <SuspendedUsers pageTitle='Разработчики'/>}/>
-                                //         <Route path='/news' render={withSuspense(News)}/>
-                                //         <Route path='/settings' render={withSuspense(Settings)}/>
-                                //         <Route path='/login' render={() => <SuspendedLoginPage/>}/>
-                                //         <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
-                                //         </Switch>
-                        </Content>
-                        <SuspendedChatPage/>
+                    <Layout className="site-layout-background" style={{maxWidth:1000, margin: "auto", padding: '24px 0' }}>
+
+                        <Row justify="center">
+                            <Col>
+                                <Navbar />
+                            </Col>
+                            <Col>
+                                <Content style={{ padding: '50px 224px', height: 'auto' }}>
+                                    <Switch>
+                                        //         <Route exact path='/' render={() => <Redirect to={"/profile"}/>}/>
+                                        //         <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
+                                        //         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                                        //         <Route path='/developers' render={() => <SuspendedUsers/>}/>
+                                        //         <Route path='/news' render={withSuspense(News)}/>
+                                        //         <Route path='/settings' render={withSuspense(Settings)}/>
+                                        //         <Route path='/login' render={() => <SuspendedLoginPage/>}/>
+                                        //         <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                                        //         </Switch>
+                                </Content>
+                                <SuspendedChatPage/>
+                            </Col>
+                        </Row>
+
                     </Layout>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Social Network ©2022 Created by Vasiliy Kabanov</Footer>
             </Layout>
-            // <div className="app-wrapper">
-            //     <HeaderContainer/>
-            //     <Navbar/>
-            //     <div className="app-wrapper-content">
-            //         <Switch>
-            //         <Route exact path='/' render={() => <Redirect to={"/profile"}/>}/>
-            //         <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
-            //         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-            //         <Route path='/users' render={() => <SuspendedUsers pageTitle='Самураи'/>}/>
-            //         <Route path='/news' render={withSuspense(News)}/>
-            //         <Route path='/settings' render={withSuspense(Settings)}/>
-            //         <Route path='/login' render={() => <SuspendedLoginPage/>}/>
-            //         <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
-            //         </Switch>
-            //     </div>
-            // </div>
         )
     }
 }

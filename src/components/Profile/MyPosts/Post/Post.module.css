@@ -1,7 +1,32 @@
 .item {
-
 }
 .item img {
     width: 60px;
     border-radius: 30px;
+}
+.messageText {
+    background-color: khaki;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 3px;
+    font-size: 0.9em
+}
+
+.likesCount {
+    padding-left: 2px;
+    font-size: 12px;
+}
+
+.likeUnlikeIcon {
+    color: Chocolate
+}
+
+.removeIcon {
+    color: Chocolate;
+    font-size: 10px;
+}
+
+.removeIcon:hover {
+    font-size: 12px;
+    cursor: pointer;
 }

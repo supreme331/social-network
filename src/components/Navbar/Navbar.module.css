@@ -3,9 +3,9 @@
     background-color: #adadad;
     padding: 20px;
 }
-.item a {
-    color: white;
-    text-decoration: none;
+.item:hover {
+font-size: 1.1em;
+    transition: 0.5s;
 }
 
 .item a.activeLink {

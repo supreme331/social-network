@@ -14,7 +14,7 @@
 .chat {
     width: 330px;
     max-height: 550px;
-    background-color: whitesmoke;
+    background-color: LightGoldenrodYellow;
     border: 1px solid silver;
     border-radius: 5px;
     position: fixed;
@@ -41,7 +41,7 @@
 }
 .messagesBlock::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #8e96ad;
+    background-color: chocolate;
 }
 .messagesBlock::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
@@ -64,13 +64,13 @@
 
 .chatMessage {
     border-radius: 5px;
-    background-color: lavender;
+    background-color: Khaki;
     margin-left: 5px;
     padding: 0 5px
 }
 
 .chatMessage div {
-    background-color: lavender;
+    background-color: Khaki;
     border-radius: 5px;
     margin: 5px 0;
     padding: 3px;
@@ -86,5 +86,5 @@
 .chatMessageFormInputs {
     width: 100%;
     height: 48px;
-    font-size: 0.9em
+    font-size: 0.9em;
 }

@@ -12,6 +12,6 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 const MyPostsContainer = connect<MapPropsType, DispatchPropsType, {}, AppStateType>(
-    mapStateToProps, {addPost: actions.addPostAC})(MyPosts);
+    mapStateToProps, {addPost: actions.addPostAC, setLiked: actions.setLiked, setUnLiked: actions.setUnLiked, deletePost: actions.deletePostAC})(MyPosts);
 
 export default MyPostsContainer;

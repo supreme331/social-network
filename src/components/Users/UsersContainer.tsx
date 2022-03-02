@@ -3,18 +3,15 @@ import {useSelector} from "react-redux"
 import {Users} from "./Users"
 import Preloader from "../common/Preloader/Preloader"
 import {getIsFetching} from "../../redux/users-selectors"
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect"
+import s from './Users.module.css'
 
-type UsersPagePropsType = {
-    pageTitle: string
-}
-
-const UsersPage: React.FC<UsersPagePropsType> = (props) => {
+const UsersPage: React.FC = () => {
 
     const isFetching = useSelector(getIsFetching)
 
-    return <div>
-        <h2>{props.pageTitle}</h2>
+    return <div className={s.usersContent}>
+        <h2>Developers</h2>
         {isFetching ? <Preloader/> : null}
         <Users/>
     </div>

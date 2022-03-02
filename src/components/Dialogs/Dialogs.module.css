@@ -4,12 +4,18 @@
 }
 
 .dialogsItems {
-    padding: 10px;
-
+    box-sizing: content-box;
+    width: 150px;
+    max-height: 50px;
+    padding: 5px 20px;
 }
 
-.dialogsItems .active {
-    color: gold;
+.dialogsItems:hover {
+    color: black;
+}
+
+.active {
+    background-color: khaki;
 }
 
 .dialog {
@@ -17,11 +23,18 @@
 }
 
 .messages {
-    padding: 10px;
+    padding-left: 20px;
 }
 
 .message {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: LightGoldenrodYellow;
+}
 
+.messageForm {
+    margin-top: 20px;
+    padding-left: 20px;
 }
 
 .error {

@@ -11,8 +11,8 @@
     left: 0;
 }
 
-.header img {
-    width: 100px;
+.logo {
+    max-height: 64px;
 }
 
 .loginBlock {

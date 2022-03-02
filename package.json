@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@craco/craco": "^6.4.3",
     "@hookform/resolvers": "^2.8.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -16,6 +17,7 @@
     "antd": "^4.17.3",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
+    "craco-less": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.19.5",
@@ -31,10 +33,10 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco  start",
+    "build": "craco  build",
+    "test": "craco  test",
+    "eject": "craco  eject"
   },
   "eslintConfig": {
     "extends": [

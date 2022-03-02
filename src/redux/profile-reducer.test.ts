@@ -1,12 +1,16 @@
 import profileReducer, {actions} from "./profile-reducer"
+import {PostType, ProfileType} from "../types/types";
 
 let state = {
     posts: [
         {id: 1, message: 'First post', likesCount: 12},
         {id: 2, message: 'Hello world!', likesCount: 18}
-    ],
-    profile: null,
-    status: ''
+    ] as Array<PostType>,
+    profile: null as ProfileType | null,
+    status: '',
+    isFetchingProfile: false,
+    isFetchingFollowed: false,
+    isFollowed: null as boolean | null
 }
 
 test('length of posts should be incremented', () => {

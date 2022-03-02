@@ -1,7 +1,8 @@
 export type PostType = {
     id: number,
     message: string,
-    likesCount: number
+    likesCount: number,
+    isLiked: boolean
 }
 export type ContactsType = {
     github: string,
@@ -36,7 +37,8 @@ export type UserType = {
 
 export type DialogType = {
     id: number,
-    name: string
+    name: string,
+    messages: Array<MessageType>
 }
 
 export type MessageType = {

@@ -8,7 +8,8 @@ import {
     getUserStatus,
     savePhoto,
     saveProfile,
-    updateUserStatus
+    updateUserStatus,
+    getIsUserFollowed, fetchingFollowed
 } from "../../redux/profile-reducer"
 import {RouteComponentProps, withRouter} from "react-router-dom"
 import {compose} from "redux"
@@ -18,7 +19,7 @@ import {AppStateType} from "../../redux/redux-store"
 import Preloader from "../common/Preloader/Preloader"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {Col, Row} from "antd"
-import {getIsFetchingProfile, getProfileSelector} from "../../redux/profile-selectors";
+import {getIsFetchingFollowed, getIsFetchingProfile, getProfileSelector} from "../../redux/profile-selectors";
 
 type MapStatePropsType = {
     profile: ProfileType | null
@@ -26,6 +27,7 @@ type MapStatePropsType = {
     authorizedUserId: number | null
     isAuth: boolean
     isFetchingProfile: boolean
+    isFetchingFollowed: boolean
 }
 
 type MapDispatchPropsType = {
@@ -35,6 +37,8 @@ type MapDispatchPropsType = {
     savePhoto: (file: File) => void
     saveProfile: (profile: ProfileType) => void
     fetchingProfile: () => void
+    getIsUserFollowed: (userId: number) => void
+    fetchingFollowed: () => void
 }
 
 type OwnPropsType = {} // coming from outside
@@ -57,7 +61,9 @@ class ProfileContainer extends React.Component<PropsType> {
         }
         if (userId) {
             this.props.fetchingProfile()
+            this.props.fetchingFollowed()
             this.props.getProfile(userId)
+            this.props.getIsUserFollowed(userId)
             this.props.getUserStatus(userId)
         }
     }
@@ -77,6 +83,8 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!this.props.profile) {
             return <Preloader/>
         } else if (this.props.isFetchingProfile) {
+            return <Preloader/>
+        } else if (this.props.isFetchingFollowed) {
             return <Preloader/>
         }
         return (
@@ -103,11 +111,13 @@ let mapStateToProps = (state:AppStateType): MapStatePropsType => ({
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
     isAuth: getIsAuth(state),
-    isFetchingProfile: getIsFetchingProfile(state)
+    isFetchingProfile: getIsFetchingProfile(state),
+    isFetchingFollowed: getIsFetchingFollowed(state)
 })
 
 export default compose<React.ComponentType>(
-    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {getProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile, fetchingProfile}),
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {getProfile,
+        getUserStatus, updateUserStatus, savePhoto, saveProfile, fetchingProfile, fetchingFollowed, getIsUserFollowed}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
